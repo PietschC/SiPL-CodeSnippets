@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="deltamodel" nsURI="http://www.sidiff.org/deltamodeling/deltamodel/1.0"
+    nsPrefix="deltamodel">
+  <eClassifiers xsi:type="ecore:EClass" name="DeltaModuleSet">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="NonVoidFeatureModel NonDeadFeature NonFalseOptionalFeature NonEmptyFeature UniqueDeltaModuleNames NonUnresolvedDependencies NonUnresolvedConflicts"/>
+    </eAnnotations>
+    <eOperations name="getDeltaModule" eType="#//DeltaModule">
+      <eParameters name="deltaModuleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getDeltaModules" upperBound="-1" eType="#//DeltaModule">
+      <eParameters name="config" eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Configuration"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysisEngine" lowerBound="1"
+        eType="#//IRelationAnalysisEngine" changeable="false" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Formula" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superimposedModel" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/superimposition/model/1.0#//SuperimposedModel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreModel" lowerBound="1"
+        eType="#//CoreModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" upperBound="-1"
+        eType="#//DeltaModule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationOrderConstraints"
+        upperBound="-1" eType="#//ConstraintGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="allRelations" upperBound="-1"
+        eType="#//Relation" changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencyRelations" upperBound="-1"
+        eType="#//DependencyRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflictRelations" upperBound="-1"
+        eType="#//ConflictRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateRelations" upperBound="-1"
+        eType="#//DuplicateRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffectRelation"
+        upperBound="-1" eType="#//TransientEffectRelation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoreModel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ValidConfiguration"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resource" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="config" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreModule" lowerBound="1"
+        eType="#//DeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeltaModule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ValidApplicationCondition"/>
+    </eAnnotations>
+    <eOperations name="getAllPredecessors" upperBound="-1" eType="#//DeltaModule"/>
+    <eOperations name="getAllSuccessors" upperBound="-1" eType="#//DeltaModule"/>
+    <eOperations name="getIncomingDependencies" upperBound="-1" eType="#//Dependency">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingDependencies" upperBound="-1" eType="#//Dependency">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingConflicts" upperBound="-1" eType="#//Conflict">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingConflicts" upperBound="-1" eType="#//Conflict">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getDuplicates" upperBound="-1" eType="#//Duplicate">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingTransientEffects" upperBound="-1" eType="#//TransientEffect">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingTransientEffects" upperBound="-1" eType="#//TransientEffect">
+      <eParameters name="deltaAction" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingApplicationConditionDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency">
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getOutgoingApplicationConditionDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency">
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getIncomingApplicationConditionConflicts" upperBound="-1" eType="#//ApplicationConditionConflict">
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getOutgoingApplicationConditionConflicts" upperBound="-1" eType="#//ApplicationConditionConflict">
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationCondition" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Formula" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="before" upperBound="-1"
+        eType="#//ConstraintGroup" changeable="false" volatile="true" transient="true"
+        derived="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="after" upperBound="-1"
+        eType="#//ConstraintGroup" changeable="false" volatile="true" transient="true"
+        derived="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delta" lowerBound="1" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//AsymmetricDifference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingApplicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" eOpposite="#//ApplicationConditionDependencyRelation/targetDeltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingApplicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" eOpposite="#//ApplicationConditionDependencyRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingDependencyRelations"
+        upperBound="-1" eType="#//DependencyRelation" eOpposite="#//DependencyRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingDependencyRelations"
+        upperBound="-1" eType="#//DependencyRelation" eOpposite="#//DependencyRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingApplicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" eOpposite="#//ApplicationConditionConflictRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingApplicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" eOpposite="#//ApplicationConditionConflictRelation/sourceDeltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingConflictRelations"
+        upperBound="-1" eType="#//ConflictRelation" eOpposite="#//ConflictRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingConflictRelations"
+        upperBound="-1" eType="#//ConflictRelation" eOpposite="#//ConflictRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateRelations" upperBound="-1"
+        eType="#//DuplicateRelation" eOpposite="#//DuplicateRelation/deltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingTransientEffectRelations"
+        upperBound="-1" eType="#//TransientEffectRelation" eOpposite="#//TransientEffectRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingTransientEffectRelations"
+        upperBound="-1" eType="#//TransientEffectRelation" eOpposite="#//TransientEffectRelation/sourceDeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Relation" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintCompliant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainCompliant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="internal" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unfulfilledConstraints"
+        upperBound="-1" eType="#//ConstraintGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unsatisfiedConfig" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionDependencyRelation"
+      eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingApplicationConditionDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingApplicationConditionDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionDependencies"
+        lowerBound="1" upperBound="-1" eType="#//ApplicationConditionDependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="void" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DependencyRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" lowerBound="1"
+        upperBound="-1" eType="#//Dependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="void" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionConflictRelation"
+      eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingApplicationConditionConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingApplicationConditionConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionConflicts"
+        lowerBound="1" upperBound="-1" eType="#//ApplicationConditionConflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConflictRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflicts" lowerBound="1"
+        upperBound="-1" eType="#//Conflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DuplicateRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" lowerBound="2"
+        upperBound="2" eType="#//DeltaModule" eOpposite="#//DeltaModule/duplicateRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicates" lowerBound="1"
+        upperBound="-1" eType="#//Duplicate" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffectRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingTransientEffectRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingTransientEffectRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffects" lowerBound="1"
+        upperBound="-1" eType="#//TransientEffect" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionDependency" eSuperTypes="#//ApplicationConditionMatch">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contributions" lowerBound="1"
+        upperBound="-1" eType="#//Dependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Dependency">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//DependencyDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffect" eType="#//TransientEffect"
+        eOpposite="#//TransientEffect/dependency"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionConflict" eSuperTypes="#//ApplicationConditionMatch">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contributions" lowerBound="1"
+        upperBound="-1" eType="#//Conflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coConflicts" upperBound="-1"
+        eType="#//ApplicationConditionConflict"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Conflict">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//ConflictDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicate" eType="#//Duplicate"
+        eOpposite="#//Duplicate/conflict"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Duplicate">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaActions" lowerBound="2"
+        upperBound="2" eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//DuplicateDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflict" upperBound="2"
+        eType="#//Conflict" eOpposite="#//Conflict/duplicate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffect">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass http://www.sidiff.org/difference/asymmetric/1.0#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//TransientEffectDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependency" eType="#//Dependency"
+        eOpposite="#//Dependency/transientEffect"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Detail" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/entities/model/1.0#//Entity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DependencyDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//DependencyKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dangling" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConflictDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ConflictKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dangling" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" defaultValueLiteral="false" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duplicate" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DuplicateDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//DuplicateKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffectDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//TransientEffectKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DependencyKind">
+    <eLiterals name="CreateUse"/>
+    <eLiterals name="DeleteForbid" value="1"/>
+    <eLiterals name="ChangeUse" value="2"/>
+    <eLiterals name="ChangeForbid" value="3"/>
+    <eLiterals name="UseDelete" value="4"/>
+    <eLiterals name="ForbidCreate" value="5"/>
+    <eLiterals name="UseChange" value="6"/>
+    <eLiterals name="ForbidChange" value="7"/>
+    <eLiterals name="ChangeChange" value="8"/>
+    <eLiterals name="DanglingDependency" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ConflictKind">
+    <eLiterals name="DeleteUse" literal="DeleteUse"/>
+    <eLiterals name="CreateForbid" value="1"/>
+    <eLiterals name="ChangeUse" value="2" literal="ChangeUse"/>
+    <eLiterals name="ChangeForbid" value="3"/>
+    <eLiterals name="ChangeChange" value="4"/>
+    <eLiterals name="DanglingConflict" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DuplicateKind">
+    <eLiterals name="CreateCreate"/>
+    <eLiterals name="DeleteDelete" value="1"/>
+    <eLiterals name="ChangeChange" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TransientEffectKind">
+    <eLiterals name="CreateDelete"/>
+    <eLiterals name="DeleteCreate" value="1"/>
+    <eLiterals name="ChangeChange" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IRelationAnalysisEngine" instanceClassName="org.sidiff.deltamodeling.deltamodel.analysis.IRelationAnalysisEngine"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionMatch" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="conditionID" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchID" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ApplicationConditionKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass http://www.sidiff.org/formula/model/1.0#//Variable" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ApplicationConditionKind">
+    <eLiterals name="PAC"/>
+    <eLiterals name="NAC" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

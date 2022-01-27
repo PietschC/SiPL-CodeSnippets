@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="deltamodel" nsURI="http://www.sidiff.org/deltamodeling/deltamodel/1.0"
+    nsPrefix="deltamodel">
+  <eClassifiers xsi:type="ecore:EClass" name="DeltaModuleSet">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="NonVoidFeatureModel NonDeadFeature NonFalseOptionalFeature NonEmptyFeature UniqueDeltaModuleNames NonUnresolvedDependencies NonUnresolvedConflicts"/>
+    </eAnnotations>
+    <eOperations name="getDeltaModule" eType="#//DeltaModule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="for(DeltaModule deltaModule : getDeltaModules()){&#xD;&#xA;&#x9;if(deltaModule.getName().equals(deltaModuleName)){&#xD;&#xA;&#x9;&#x9;return deltaModule;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return null;"/>
+      </eAnnotations>
+      <eParameters name="deltaModuleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getDeltaModules" upperBound="-1" eType="#//DeltaModule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="Configuration configuration = FormulaFactory.eINSTANCE.createConfiguration();&#xA;for (DeltaModule deltaModule : this.getDeltaModules()) {&#xA;&#x9;Formula applicationCondition = deltaModule.getApplicationCondition();&#xA;&#x9;for (Variable applicationConditionVariable : applicationCondition.getVariables()) {&#xA;&#x9;&#x9;for (Variable configurationVariable : config.getVariableAssignments().keySet()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionVariable.getName().equals(configurationVariable.getName())) {&#xA;&#x9;&#x9;&#x9;&#x9;configuration.getVariableAssignments().put(applicationConditionVariable,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;config.getVariableAssignments().get(configurationVariable));&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;EList&lt;DeltaModule> deltaModules = new BasicEList&lt;DeltaModule>();&#xA;DeltaModule coreModule = getCoreModel().getCoreModule();&#xA;for (DeltaModule deltaModule : getDeltaModules()) {&#xA;&#x9;if (!deltaModule.equals(coreModule) &amp;&amp; deltaModule.getDelta() != null &amp;&amp; deltaModule.getApplicationCondition().eval(configuration)) {&#xA;&#x9;&#x9;deltaModules.add(deltaModule);&#xA;&#x9;}&#xA;}&#xA;return deltaModules;"/>
+      </eAnnotations>
+      <eParameters name="config" eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Configuration"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysisEngine" lowerBound="1"
+        eType="#//IRelationAnalysisEngine" changeable="false" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Formula"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superimposedModel" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.superimposition/model/SuperimpositionModel.ecore#//SuperimposedModel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreModel" lowerBound="1"
+        eType="#//CoreModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" upperBound="-1"
+        eType="#//DeltaModule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationOrderConstraints"
+        upperBound="-1" eType="#//ConstraintGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="allRelations" upperBound="-1"
+        eType="#//Relation" changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="EList&lt;Relation> allRelations = new BasicEList&lt;Relation>();&#xA;allRelations.addAll(getApplicationConditionConflictRelations());&#xA;allRelations.addAll(getConflictRelations());&#xA;allRelations.addAll(getApplicationConditionDependencyRelations());&#xA;allRelations.addAll(getDependencyRelations());&#xA;allRelations.addAll(getDuplicateRelations());&#xA;allRelations.addAll(getTransientEffectRelation());&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;return new EcoreEList.UnmodifiableEList&lt;Relation>(this,DeltaModelPackage.Literals.DELTA_MODULE_SET__ALL_RELATIONS, allRelations.size(), allRelations.toArray());"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencyRelations" upperBound="-1"
+        eType="#//DependencyRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflictRelations" upperBound="-1"
+        eType="#//ConflictRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateRelations" upperBound="-1"
+        eType="#//DuplicateRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffectRelation"
+        upperBound="-1" eType="#//TransientEffectRelation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoreModel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ValidConfiguration"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resource" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="if(uri != null &amp;&amp; !uri.isEmpty()) {&#xA;&#x9;URI uri_ = URI.createURI(uri);&#xA;&#x9;ResourceSet resourceSet = this.eResource().getResourceSet();&#xA;&#x9;if(resourceSet.getURIConverter().exists(uri_, null)) {&#xA;&#x9;&#x9;return this.eResource().getResourceSet().getResource(uri_, true);&#xA;&#x9;}&#xA;}&#xA;return null;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="config" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Variable"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreModule" lowerBound="1"
+        eType="#//DeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeltaModule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ValidApplicationCondition"/>
+    </eAnnotations>
+    <eOperations name="getAllPredecessors" upperBound="-1" eType="#//DeltaModule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return DeltaModelUtils.getAllPredecessors(this);"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getAllSuccessors" upperBound="-1" eType="#//DeltaModule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return DeltaModelUtils.getAllSuccessors(this);"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getIncomingDependencies" upperBound="-1" eType="#//Dependency">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;Dependency> incomingDependencies = new BasicEList&lt;Dependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (DependencyRelation dependencyRelation : getIncomingDependencyRelations()) {&#xA;&#x9;&#x9;for (Dependency dependency : dependencyRelation.getDependencies()) {&#xA;&#x9;&#x9;&#x9;if (dependency.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingDependencies.add(dependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingDependencies;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingDependencies" upperBound="-1" eType="#//Dependency">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;Dependency> outgoingDependencies = new BasicEList&lt;Dependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (DependencyRelation dependencyRelation : getOutgoingDependencyRelations()) {&#xA;&#x9;&#x9;for (Dependency dependency : dependencyRelation.getDependencies()) {&#xA;&#x9;&#x9;&#x9;if (dependency.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingDependencies.add(dependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingDependencies;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingConflicts" upperBound="-1" eType="#//Conflict">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;Conflict> incomingConflicts = new BasicEList&lt;Conflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ConflictRelation conflictRelation : getIncomingConflictRelations()) {&#xA;&#x9;&#x9;for (Conflict conflict : conflictRelation.getConflicts()) {&#xA;&#x9;&#x9;&#x9;if (conflict.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingConflicts.add(conflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingConflicts;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingConflicts" upperBound="-1" eType="#//Conflict">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;Conflict> outgoingConflicts = new BasicEList&lt;Conflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ConflictRelation conflictRelation : getOutgoingConflictRelations()) {&#xA;&#x9;&#x9;for (Conflict conflict : conflictRelation.getConflicts()) {&#xA;&#x9;&#x9;&#x9;if (conflict.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingConflicts.add(conflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingConflicts;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getDuplicates" upperBound="-1" eType="#//Duplicate">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;Duplicate> duplicates = new BasicEList&lt;Duplicate>();&#xA;if(getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(DuplicateRelation duplicateRelation : getDuplicateRelations()) {&#xA;&#x9;&#x9;for(Duplicate duplicate : duplicateRelation.getDuplicates()) {&#xA;&#x9;&#x9;&#x9;if(duplicate.getDeltaActions().contains(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;duplicates.add(duplicate);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return duplicates;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingTransientEffects" upperBound="-1" eType="#//TransientEffect">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;TransientEffect> incomingTransientEffects = new BasicEList&lt;TransientEffect>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (TransientEffectRelation transientEffectRelation : getIncomingTransientEffectRelations()) {&#xA;&#x9;&#x9;for (TransientEffect transientEffect : transientEffectRelation.getTransientEffects()) {&#xA;&#x9;&#x9;&#x9;if (transientEffect.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingTransientEffects.add(transientEffect);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingTransientEffects;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getOutgoingTransientEffects" upperBound="-1" eType="#//TransientEffect">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;TransientEffect> outgoingTransientEffects = new BasicEList&lt;TransientEffect>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (TransientEffectRelation transientEffectRelation : getOutgoingTransientEffectRelations()) {&#xA;&#x9;&#x9;for (TransientEffect transientEffect : transientEffectRelation.getTransientEffects()) {&#xA;&#x9;&#x9;&#x9;if (transientEffect.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingTransientEffects.add(transientEffect);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingTransientEffects;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    </eOperations>
+    <eOperations name="getIncomingApplicationConditionDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;ApplicationConditionDependency> incomingApplicationConditionDependencies = new BasicEList&lt;ApplicationConditionDependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ApplicationConditionDependencyRelation dependencyRelationGroup : getIncomingApplicationConditionDependencyRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionDependency applicationConditionDependency : dependencyRelationGroup.getApplicationConditionDependencies()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionDependency.getKind() == kind &amp;&amp; applicationConditionDependency.getContributions().stream().anyMatch(d -> d.getTargetDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingApplicationConditionDependencies.add(applicationConditionDependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingApplicationConditionDependencies;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getOutgoingApplicationConditionDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;ApplicationConditionDependency> outgoingApplicationConditionDependencies = new BasicEList&lt;ApplicationConditionDependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ApplicationConditionDependencyRelation applicationConditionDependencyRelation : getOutgoingApplicationConditionDependencyRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionDependency applicationConditionDependency : applicationConditionDependencyRelation.getApplicationConditionDependencies()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionDependency.getKind() == kind &amp;&amp; applicationConditionDependency.getContributions().stream().anyMatch(d -> d.getSourceDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingApplicationConditionDependencies.add(applicationConditionDependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingApplicationConditionDependencies;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getIncomingApplicationConditionConflicts" upperBound="-1" eType="#//ApplicationConditionConflict">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;ApplicationConditionConflict> incomingApplicationConflicts = new BasicEList&lt;ApplicationConditionConflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(ApplicationConditionConflictRelation applicationConditionConflictRelation: getIncomingApplicationConditionConflictRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionConflict applicationConditionConflict: applicationConditionConflictRelation.getApplicationConditionConflicts()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionConflict.getKind() == kind &amp;&amp; applicationConditionConflict.getContributions().stream().anyMatch(c -> c.getTargetDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingApplicationConflicts.add(applicationConditionConflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingApplicationConflicts;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eOperations name="getOutgoingApplicationConditionConflicts" upperBound="-1" eType="#//ApplicationConditionConflict">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="EList&lt;ApplicationConditionConflict> outgoingApplicationConditionConflict = new BasicEList&lt;ApplicationConditionConflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(ApplicationConditionConflictRelation applicationConditionConflictRelation : getOutgoingApplicationConditionConflictRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionConflict applicationConditionConflict : applicationConditionConflictRelation.getApplicationConditionConflicts()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionConflict.getKind() == kind &amp;&amp; applicationConditionConflict.getContributions().stream().anyMatch(c -> c.getSourceDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingApplicationConditionConflict.add(applicationConditionConflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingApplicationConditionConflict;"/>
+      </eAnnotations>
+      <eParameters name="deltaAction" lowerBound="1" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+      <eParameters name="kind" eType="#//ApplicationConditionKind"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationCondition" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Formula"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="before" upperBound="-1"
+        eType="#//ConstraintGroup" changeable="false" volatile="true" transient="true"
+        derived="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="EList&lt;ConstraintGroup> before = new EObjectContainmentEList&lt;ConstraintGroup>(ConstraintGroup.class, this, DeltaModelPackage.DELTA_MODULE__BEFORE);&#xA;before.addAll(DeltaModelUtils.getBefore(this));&#xA;&#xA;return before;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="after" upperBound="-1"
+        eType="#//ConstraintGroup" changeable="false" volatile="true" transient="true"
+        derived="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="EList&lt;ConstraintGroup> after = new EObjectContainmentEList&lt;ConstraintGroup>(ConstraintGroup.class, this, DeltaModelPackage.DELTA_MODULE__AFTER);&#xA;after.addAll(DeltaModelUtils.getAfter(this));&#xA;&#xA;return after;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delta" lowerBound="1" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//AsymmetricDifference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingApplicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" eOpposite="#//ApplicationConditionDependencyRelation/targetDeltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingApplicationConditionDependencyRelations"
+        upperBound="-1" eType="#//ApplicationConditionDependencyRelation" eOpposite="#//ApplicationConditionDependencyRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingDependencyRelations"
+        upperBound="-1" eType="#//DependencyRelation" eOpposite="#//DependencyRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingDependencyRelations"
+        upperBound="-1" eType="#//DependencyRelation" eOpposite="#//DependencyRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingApplicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" eOpposite="#//ApplicationConditionConflictRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingApplicationConditionConflictRelations"
+        upperBound="-1" eType="#//ApplicationConditionConflictRelation" eOpposite="#//ApplicationConditionConflictRelation/sourceDeltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingConflictRelations"
+        upperBound="-1" eType="#//ConflictRelation" eOpposite="#//ConflictRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingConflictRelations"
+        upperBound="-1" eType="#//ConflictRelation" eOpposite="#//ConflictRelation/sourceDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateRelations" upperBound="-1"
+        eType="#//DuplicateRelation" eOpposite="#//DuplicateRelation/deltaModules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingTransientEffectRelations"
+        upperBound="-1" eType="#//TransientEffectRelation" eOpposite="#//TransientEffectRelation/targetDeltaModule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingTransientEffectRelations"
+        upperBound="-1" eType="#//TransientEffectRelation" eOpposite="#//TransientEffectRelation/sourceDeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Relation" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintCompliant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getUnfulfilledConstraints().isEmpty();"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainCompliant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getUnsatisfiedConfig().isEmpty();"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="internal" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="switch(this.eClass().getClassifierID()) {&#xA;&#x9;case DeltaModelPackage.CONFLICT_RELATION:&#xA;&#x9;&#x9;return ((ConflictRelation)this).getSourceDeltaModule().equals(((ConflictRelation)this).getTargetDeltaModule());&#xA;&#x9;case DeltaModelPackage.DEPENDENCY_RELATION:&#xA;&#x9;&#x9;return ((DependencyRelation)this).getSourceDeltaModule().equals(((DependencyRelation)this).getTargetDeltaModule());&#xA;&#x9;case DeltaModelPackage.DUPLICATE_RELATION:&#xA;&#x9;&#x9;return ((DuplicateRelation)this).getDeltaModules().get(0).equals(((DuplicateRelation)this).getDeltaModules().get(1));&#xA;&#x9;case DeltaModelPackage.TRANSIENT_EFFECT_RELATION:&#xA;&#x9;&#x9;return ((TransientEffectRelationImpl)this).getSourceDeltaModule().equals(((TransientEffectRelationImpl)this).getTargetDeltaModule());&#xA;&#x9;default:&#xA;&#x9;&#x9;return false;&#xA;}"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unfulfilledConstraints"
+        upperBound="-1" eType="#//ConstraintGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unsatisfiedConfig" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Variable"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionDependencyRelation"
+      eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingApplicationConditionDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingApplicationConditionDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionDependencies"
+        lowerBound="1" upperBound="-1" eType="#//ApplicationConditionDependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(ApplicationConditionDependency dependency: getApplicationConditionDependencies()) {&#xA;&#x9;resolved &amp;= dependency.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="void" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DependencyRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(Dependency dependency: getDependencies()) {&#xA;&#x9;resolved &amp;= dependency.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingDependencyRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" lowerBound="1"
+        upperBound="-1" eType="#//Dependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="void" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionConflictRelation"
+      eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModules" lowerBound="1"
+        upperBound="-1" eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingApplicationConditionConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingApplicationConditionConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationConditionConflicts"
+        lowerBound="1" upperBound="-1" eType="#//ApplicationConditionConflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(ApplicationConditionConflict conflict : getApplicationConditionConflicts()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConflictRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(Conflict conflict : getConflicts()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingConflictRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflicts" lowerBound="1"
+        upperBound="-1" eType="#//Conflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean soft = true;&#xA;for(Conflict conflict : getConflicts()) {&#xA;&#x9;soft &amp;= conflict.isSoft();&#xA;}&#xA;return soft;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DuplicateRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaModules" lowerBound="2"
+        upperBound="2" eType="#//DeltaModule" eOpposite="#//DeltaModule/duplicateRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicates" lowerBound="1"
+        upperBound="-1" eType="#//Duplicate" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(Duplicate duplicate : getDuplicates()) {&#xA;&#x9;resolved &amp;= duplicate.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffectRelation" eSuperTypes="#//Relation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/outgoingTransientEffectRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaModule" lowerBound="1"
+        eType="#//DeltaModule" eOpposite="#//DeltaModule/incomingTransientEffectRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffects" lowerBound="1"
+        upperBound="-1" eType="#//TransientEffect" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionDependency" eSuperTypes="#//ApplicationConditionMatch">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contributions" lowerBound="1"
+        upperBound="-1" eType="#//Dependency" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coDependencies" upperBound="-1"
+        eType="#//ApplicationConditionDependency"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Dependency">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getNonResolvableConfig().isEmpty();"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//DependencyDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transientEffect" eType="#//TransientEffect"
+        eOpposite="#//TransientEffect/dependency"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Variable"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionConflict" eSuperTypes="#//ApplicationConditionMatch">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contributions" lowerBound="1"
+        upperBound="-1" eType="#//Conflict" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coConflicts" upperBound="-1"
+        eType="#//ApplicationConditionConflict"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Conflict">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getNonResolvableConfig().isEmpty();"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getDetails().stream().allMatch(d -> d.isSoft());"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//ConflictDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicate" eType="#//Duplicate"
+        eOpposite="#//Duplicate/conflict"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Variable"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Duplicate">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaActions" lowerBound="2"
+        upperBound="2" eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//DuplicateDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conflict" upperBound="2"
+        eType="#//Conflict" eOpposite="#//Conflict/duplicate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="boolean resolved = true;&#xA;for(Conflict conflict : getConflict()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffect">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDeltaAction" lowerBound="1"
+        eType="ecore:EClass ../../org.sidiff.difference.asymmetric/model/Asymmetric.ecore#//OperationInvocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//TransientEffectDetail" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependency" eType="#//Dependency"
+        eOpposite="#//Dependency/transientEffect"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Detail" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.entities/model/EntitiesModel.ecore#//Entity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DependencyDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//DependencyKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dangling" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return kind == DependencyKind.DANGLING_DEPENDENCY;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConflictDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ConflictKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dangling" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" defaultValueLiteral="false"
+        derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return kind == ConflictKind.DANGLING_CONFLICT;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duplicate" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DuplicateDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//DuplicateKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransientEffectDetail" eSuperTypes="#//Detail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//TransientEffectKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DependencyKind">
+    <eLiterals name="CreateUse"/>
+    <eLiterals name="DeleteForbid" value="1"/>
+    <eLiterals name="ChangeUse" value="2"/>
+    <eLiterals name="ChangeForbid" value="3"/>
+    <eLiterals name="UseDelete" value="4"/>
+    <eLiterals name="ForbidCreate" value="5"/>
+    <eLiterals name="UseChange" value="6"/>
+    <eLiterals name="ForbidChange" value="7"/>
+    <eLiterals name="ChangeChange" value="8"/>
+    <eLiterals name="DanglingDependency" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ConflictKind">
+    <eLiterals name="DeleteUse" literal="DeleteUse"/>
+    <eLiterals name="CreateForbid" value="1"/>
+    <eLiterals name="ChangeUse" value="2" literal="ChangeUse"/>
+    <eLiterals name="ChangeForbid" value="3"/>
+    <eLiterals name="ChangeChange" value="4"/>
+    <eLiterals name="DanglingConflict" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DuplicateKind">
+    <eLiterals name="CreateCreate"/>
+    <eLiterals name="DeleteDelete" value="1"/>
+    <eLiterals name="ChangeChange" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TransientEffectKind">
+    <eLiterals name="CreateDelete"/>
+    <eLiterals name="DeleteCreate" value="1"/>
+    <eLiterals name="ChangeChange" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IRelationAnalysisEngine" instanceClassName="org.sidiff.deltamodeling.deltamodel.analysis.IRelationAnalysisEngine"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationConditionMatch" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="conditionID" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchID" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ApplicationConditionKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="return getNonResolvableConfig().isEmpty();"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonResolvableConfig" upperBound="-1"
+        eType="ecore:EClass ../../org.sidiff.formula/model/Formula.ecore#//Variable"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="get" value="EList&lt;Variable> variables = new BasicEList&lt;Variable>();&#xA;switch (this.eClass().getClassifierID()) {&#xA;case DeltaModelPackage.APPLICATION_CONDITION_CONFLICT:&#xA;&#x9;ApplicationConditionConflict applicationConditionConflict = (ApplicationConditionConflict) this;&#xA;&#x9;for (Conflict conflict : applicationConditionConflict.getContributions()) {&#xA;&#x9;&#x9;if (conflict.isResolved()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionConflict.getKind() == ApplicationConditionKind.NAC) {&#xA;&#x9;&#x9;&#x9;&#x9;return new BasicEList&lt;Variable>();&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;for (Variable variable : conflict.getNonResolvableConfig()) {&#xA;&#x9;&#x9;&#x9;&#x9;if (variables.stream().noneMatch(v -> v.getName().equals(variable.getName()))) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;variables.add(FormulaUtil.createVariable(variable.getName()));&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;break;&#xA;case DeltaModelPackage.APPLICATION_CONDITION_DEPENDENCY:&#xA;&#x9;ApplicationConditionDependency applicationConditionDependency = (ApplicationConditionDependency) this;&#xA;&#x9;for (Dependency dependency : applicationConditionDependency.getContributions()) {&#xA;&#x9;&#x9;if (dependency.isResolved()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionDependency.getKind() == ApplicationConditionKind.NAC) {&#xA;&#x9;&#x9;&#x9;&#x9;return new BasicEList&lt;Variable>();&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;for (Variable variable : dependency.getNonResolvableConfig()) {&#xA;&#x9;&#x9;&#x9;&#x9;if (variables.stream().noneMatch(v -> v.getName().equals(variable.getName()))) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;variables.add(FormulaUtil.createVariable(variable.getName()));&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;break;&#xA;default:&#xA;&#x9;break;&#xA;}&#xA;&#xA;return variables;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ApplicationConditionKind">
+    <eLiterals name="PAC"/>
+    <eLiterals name="NAC" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

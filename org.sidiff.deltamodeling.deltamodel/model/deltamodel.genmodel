@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="(c), Christopher Pietsch, Software Engineering Group, University of Siegen 2017 all rights reserved"
+    modelDirectory="/org.sidiff.deltamodeling.deltamodel/src" editorDirectory="/org.sidiff.deltamodeling.ui.deltamodel/src"
+    modelPluginID="org.sidiff.deltamodeling.deltamodel" modelName="DeltaModel" modelPluginClass="org.sidiff.deltamodeling.deltamodel.DeltaModelPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" editorPluginID="org.sidiff.deltamodeling.ui.deltamodel"
+    colorProviders="true" usedGenPackages="../../org.sidiff.difference.asymmetric/model/Asymmetric.genmodel#//asymmetric platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.sidiff.entities/model/EntitiesModel.genmodel#//entities ../../org.sidiff.formula/model/Formula.genmodel#//formula ../../org.sidiff.matching.model/model/MatchingModel.genmodel#//model ../../org.sidiff.superimposition/model/SuperimpositionModel.genmodel#//superimposition ../../org.sidiff.difference.symmetric/model/Symmetric.genmodel#//symmetric ../../org.sidiff.editrule.rulebase/model/RuleBase.genmodel#//rulebase platform:/plugin/org.eclipse.emf.henshin.model/model/henshin.genmodel#//henshin"
+    operationReflection="true" importOrganizing="true" styleProviders="true">
+  <foreignModel>deltamodel.ecore</foreignModel>
+  <genPackages prefix="DeltaModel" basePackage="org.sidiff.deltamodeling" disposableProviderFactory="true"
+      loadInitialization="true" multipleEditorPages="false" generateModelWizard="false"
+      ecorePackage="deltamodel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="deltamodel.ecore#//DependencyKind">
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/CreateUse"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/DeleteForbid"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/ChangeUse"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/ChangeForbid"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/UseDelete"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/ForbidCreate"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/UseChange"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/ForbidChange"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/ChangeChange"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DependencyKind/DanglingDependency"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="deltamodel.ecore#//ConflictKind">
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/DeleteUse"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/CreateForbid"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/ChangeUse"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/ChangeForbid"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/ChangeChange"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ConflictKind/DanglingConflict"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="deltamodel.ecore#//DuplicateKind">
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DuplicateKind/CreateCreate"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DuplicateKind/DeleteDelete"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//DuplicateKind/ChangeChange"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="deltamodel.ecore#//TransientEffectKind">
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//TransientEffectKind/CreateDelete"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//TransientEffectKind/DeleteCreate"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//TransientEffectKind/ChangeChange"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="deltamodel.ecore#//ApplicationConditionKind">
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ApplicationConditionKind/PAC"/>
+      <genEnumLiterals ecoreEnumLiteral="deltamodel.ecore#//ApplicationConditionKind/NAC"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="deltamodel.ecore#//IRelationAnalysisEngine"/>
+    <genClasses ecoreClass="deltamodel.ecore#//DeltaModuleSet">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DeltaModuleSet/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DeltaModuleSet/analysisEngine"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Problem Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/featureModel"/>
+      <genFeatures property="None" children="true" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/superimposedModel"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/coreModel"/>
+      <genFeatures property="None" children="true" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/deltaModules"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/applicationOrderConstraints"/>
+      <genFeatures property="None" notify="false" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/allRelations"
+          get="EList&lt;Relation> allRelations = new BasicEList&lt;Relation>();&#xA;allRelations.addAll(getApplicationConditionConflictRelations());&#xA;allRelations.addAll(getConflictRelations());&#xA;allRelations.addAll(getApplicationConditionDependencyRelations());&#xA;allRelations.addAll(getDependencyRelations());&#xA;allRelations.addAll(getDuplicateRelations());&#xA;allRelations.addAll(getTransientEffectRelation());&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;return new EcoreEList.UnmodifiableEList&lt;Relation>(this,DeltaModelPackage.Literals.DELTA_MODULE_SET__ALL_RELATIONS, allRelations.size(), allRelations.toArray());"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/applicationConditionDependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/dependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/applicationConditionConflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/conflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/duplicateRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModuleSet/transientEffectRelation"/>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModuleSet/getDeltaModule"
+          body="for(DeltaModule deltaModule : getDeltaModules()){&#xD;&#xA;&#x9;if(deltaModule.getName().equals(deltaModuleName)){&#xD;&#xA;&#x9;&#x9;return deltaModule;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return null;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModuleSet/getDeltaModule/deltaModuleName"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModuleSet/getDeltaModules"
+          body="Configuration configuration = FormulaFactory.eINSTANCE.createConfiguration();&#xA;for (DeltaModule deltaModule : this.getDeltaModules()) {&#xA;&#x9;Formula applicationCondition = deltaModule.getApplicationCondition();&#xA;&#x9;for (Variable applicationConditionVariable : applicationCondition.getVariables()) {&#xA;&#x9;&#x9;for (Variable configurationVariable : config.getVariableAssignments().keySet()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionVariable.getName().equals(configurationVariable.getName())) {&#xA;&#x9;&#x9;&#x9;&#x9;configuration.getVariableAssignments().put(applicationConditionVariable,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;config.getVariableAssignments().get(configurationVariable));&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;EList&lt;DeltaModule> deltaModules = new BasicEList&lt;DeltaModule>();&#xA;DeltaModule coreModule = getCoreModel().getCoreModule();&#xA;for (DeltaModule deltaModule : getDeltaModules()) {&#xA;&#x9;if (!deltaModule.equals(coreModule) &amp;&amp; deltaModule.getDelta() != null &amp;&amp; deltaModule.getApplicationCondition().eval(configuration)) {&#xA;&#x9;&#x9;deltaModules.add(deltaModule);&#xA;&#x9;}&#xA;}&#xA;return deltaModules;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModuleSet/getDeltaModules/config"/>
+      </genOperations>
+    </genClasses>
+    <genClasses provider="None" ecoreClass="deltamodel.ecore#//CoreModel" labelFeature="#//deltamodel/CoreModel/uri">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//CoreModel/resource"
+          get="if(uri != null &amp;&amp; !uri.isEmpty()) {&#xA;&#x9;URI uri_ = URI.createURI(uri);&#xA;&#x9;ResourceSet resourceSet = this.eResource().getResourceSet();&#xA;&#x9;if(resourceSet.getURIConverter().exists(uri_, null)) {&#xA;&#x9;&#x9;return this.eResource().getResourceSet().getResource(uri_, true);&#xA;&#x9;}&#xA;}&#xA;return null;"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//CoreModel/uri"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//CoreModel/config"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//CoreModel/coreModule"/>
+    </genClasses>
+    <genClasses provider="Stateful" ecoreClass="deltamodel.ecore#//DeltaModule">
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EAttribute deltamodel.ecore#//DeltaModule/name"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Problem Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/applicationCondition"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/before"
+          get="EList&lt;ConstraintGroup> before = new EObjectContainmentEList&lt;ConstraintGroup>(ConstraintGroup.class, this, DeltaModelPackage.DELTA_MODULE__BEFORE);&#xA;before.addAll(DeltaModelUtils.getBefore(this));&#xA;&#xA;return before;"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/after"
+          get="EList&lt;ConstraintGroup> after = new EObjectContainmentEList&lt;ConstraintGroup>(ConstraintGroup.class, this, DeltaModelPackage.DELTA_MODULE__AFTER);&#xA;after.addAll(DeltaModelUtils.getAfter(this));&#xA;&#xA;return after;"/>
+      <genFeatures property="None" children="true" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/delta"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/incomingApplicationConditionDependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/outgoingApplicationConditionDependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/incomingDependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/outgoingDependencyRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/incomingApplicationConditionConflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/outgoingApplicationConditionConflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/incomingConflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/outgoingConflictRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/duplicateRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/incomingTransientEffectRelations"/>
+      <genFeatures property="None" createChild="false" propertyCategory="Solution Space"
+          propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//DeltaModule/outgoingTransientEffectRelations"/>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getAllPredecessors"
+          body="return DeltaModelUtils.getAllPredecessors(this);"/>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getAllSuccessors"
+          body="return DeltaModelUtils.getAllSuccessors(this);"/>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getIncomingDependencies"
+          body="EList&lt;Dependency> incomingDependencies = new BasicEList&lt;Dependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (DependencyRelation dependencyRelation : getIncomingDependencyRelations()) {&#xA;&#x9;&#x9;for (Dependency dependency : dependencyRelation.getDependencies()) {&#xA;&#x9;&#x9;&#x9;if (dependency.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingDependencies.add(dependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingDependencies;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingDependencies/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getOutgoingDependencies"
+          body="EList&lt;Dependency> outgoingDependencies = new BasicEList&lt;Dependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (DependencyRelation dependencyRelation : getOutgoingDependencyRelations()) {&#xA;&#x9;&#x9;for (Dependency dependency : dependencyRelation.getDependencies()) {&#xA;&#x9;&#x9;&#x9;if (dependency.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingDependencies.add(dependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingDependencies;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingDependencies/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getIncomingConflicts"
+          body="EList&lt;Conflict> incomingConflicts = new BasicEList&lt;Conflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ConflictRelation conflictRelation : getIncomingConflictRelations()) {&#xA;&#x9;&#x9;for (Conflict conflict : conflictRelation.getConflicts()) {&#xA;&#x9;&#x9;&#x9;if (conflict.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingConflicts.add(conflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingConflicts;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingConflicts/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getOutgoingConflicts"
+          body="EList&lt;Conflict> outgoingConflicts = new BasicEList&lt;Conflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ConflictRelation conflictRelation : getOutgoingConflictRelations()) {&#xA;&#x9;&#x9;for (Conflict conflict : conflictRelation.getConflicts()) {&#xA;&#x9;&#x9;&#x9;if (conflict.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingConflicts.add(conflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingConflicts;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingConflicts/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getDuplicates"
+          body="EList&lt;Duplicate> duplicates = new BasicEList&lt;Duplicate>();&#xA;if(getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(DuplicateRelation duplicateRelation : getDuplicateRelations()) {&#xA;&#x9;&#x9;for(Duplicate duplicate : duplicateRelation.getDuplicates()) {&#xA;&#x9;&#x9;&#x9;if(duplicate.getDeltaActions().contains(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;duplicates.add(duplicate);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return duplicates;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getDuplicates/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getIncomingTransientEffects"
+          body="EList&lt;TransientEffect> incomingTransientEffects = new BasicEList&lt;TransientEffect>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (TransientEffectRelation transientEffectRelation : getIncomingTransientEffectRelations()) {&#xA;&#x9;&#x9;for (TransientEffect transientEffect : transientEffectRelation.getTransientEffects()) {&#xA;&#x9;&#x9;&#x9;if (transientEffect.getTargetDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingTransientEffects.add(transientEffect);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingTransientEffects;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingTransientEffects/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getOutgoingTransientEffects"
+          body="EList&lt;TransientEffect> outgoingTransientEffects = new BasicEList&lt;TransientEffect>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (TransientEffectRelation transientEffectRelation : getOutgoingTransientEffectRelations()) {&#xA;&#x9;&#x9;for (TransientEffect transientEffect : transientEffectRelation.getTransientEffects()) {&#xA;&#x9;&#x9;&#x9;if (transientEffect.getSourceDeltaAction().equals(deltaAction)) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingTransientEffects.add(transientEffect);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingTransientEffects;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingTransientEffects/deltaAction"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionDependencies"
+          body="EList&lt;ApplicationConditionDependency> incomingApplicationConditionDependencies = new BasicEList&lt;ApplicationConditionDependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ApplicationConditionDependencyRelation dependencyRelationGroup : getIncomingApplicationConditionDependencyRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionDependency applicationConditionDependency : dependencyRelationGroup.getApplicationConditionDependencies()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionDependency.getKind() == kind &amp;&amp; applicationConditionDependency.getContributions().stream().anyMatch(d -> d.getTargetDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingApplicationConditionDependencies.add(applicationConditionDependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingApplicationConditionDependencies;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionDependencies/deltaAction"/>
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionDependencies/kind"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionDependencies"
+          body="EList&lt;ApplicationConditionDependency> outgoingApplicationConditionDependencies = new BasicEList&lt;ApplicationConditionDependency>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for (ApplicationConditionDependencyRelation applicationConditionDependencyRelation : getOutgoingApplicationConditionDependencyRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionDependency applicationConditionDependency : applicationConditionDependencyRelation.getApplicationConditionDependencies()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionDependency.getKind() == kind &amp;&amp; applicationConditionDependency.getContributions().stream().anyMatch(d -> d.getSourceDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingApplicationConditionDependencies.add(applicationConditionDependency);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingApplicationConditionDependencies;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionDependencies/deltaAction"/>
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionDependencies/kind"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionConflicts"
+          body="EList&lt;ApplicationConditionConflict> incomingApplicationConflicts = new BasicEList&lt;ApplicationConditionConflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(ApplicationConditionConflictRelation applicationConditionConflictRelation: getIncomingApplicationConditionConflictRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionConflict applicationConditionConflict: applicationConditionConflictRelation.getApplicationConditionConflicts()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionConflict.getKind() == kind &amp;&amp; applicationConditionConflict.getContributions().stream().anyMatch(c -> c.getTargetDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;incomingApplicationConflicts.add(applicationConditionConflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return incomingApplicationConflicts;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionConflicts/deltaAction"/>
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getIncomingApplicationConditionConflicts/kind"/>
+      </genOperations>
+      <genOperations ecoreOperation="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionConflicts"
+          body="EList&lt;ApplicationConditionConflict> outgoingApplicationConditionConflict = new BasicEList&lt;ApplicationConditionConflict>();&#xA;if (getDelta().getOperationInvocations().contains(deltaAction)) {&#xA;&#x9;for(ApplicationConditionConflictRelation applicationConditionConflictRelation : getOutgoingApplicationConditionConflictRelations()) {&#xA;&#x9;&#x9;for(ApplicationConditionConflict applicationConditionConflict : applicationConditionConflictRelation.getApplicationConditionConflicts()) {&#xA;&#x9;&#x9;&#x9;if(applicationConditionConflict.getKind() == kind &amp;&amp; applicationConditionConflict.getContributions().stream().anyMatch(c -> c.getSourceDeltaAction().equals(deltaAction))) {&#xA;&#x9;&#x9;&#x9;&#x9;outgoingApplicationConditionConflict.add(applicationConditionConflict);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}&#xA;return outgoingApplicationConditionConflict;">
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionConflicts/deltaAction"/>
+        <genParameters ecoreParameter="deltamodel.ecore#//DeltaModule/getOutgoingApplicationConditionConflicts/kind"/>
+      </genOperations>
+    </genClasses>
+    <genClasses provider="None" ecoreClass="deltamodel.ecore#//ConstraintGroup">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference deltamodel.ecore#//ConstraintGroup/deltaModules"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//Relation">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//Relation/constraintCompliant"
+          get="return getUnfulfilledConstraints().isEmpty();"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//Relation/domainCompliant"
+          get="return getUnsatisfiedConfig().isEmpty();"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//Relation/internal"
+          get="switch(this.eClass().getClassifierID()) {&#xA;&#x9;case DeltaModelPackage.CONFLICT_RELATION:&#xA;&#x9;&#x9;return ((ConflictRelation)this).getSourceDeltaModule().equals(((ConflictRelation)this).getTargetDeltaModule());&#xA;&#x9;case DeltaModelPackage.DEPENDENCY_RELATION:&#xA;&#x9;&#x9;return ((DependencyRelation)this).getSourceDeltaModule().equals(((DependencyRelation)this).getTargetDeltaModule());&#xA;&#x9;case DeltaModelPackage.DUPLICATE_RELATION:&#xA;&#x9;&#x9;return ((DuplicateRelation)this).getDeltaModules().get(0).equals(((DuplicateRelation)this).getDeltaModules().get(1));&#xA;&#x9;case DeltaModelPackage.TRANSIENT_EFFECT_RELATION:&#xA;&#x9;&#x9;return ((TransientEffectRelationImpl)this).getSourceDeltaModule().equals(((TransientEffectRelationImpl)this).getTargetDeltaModule());&#xA;&#x9;default:&#xA;&#x9;&#x9;return false;&#xA;}"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//Relation/unfulfilledConstraints"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Relation/unsatisfiedConfig"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//ApplicationConditionDependencyRelation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionDependencyRelation/sourceDeltaModule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionDependencyRelation/targetDeltaModules"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionDependencyRelation/applicationConditionDependencies"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionDependencyRelation/resolved"
+          get="boolean resolved = true;&#xA;for(ApplicationConditionDependency dependency: getApplicationConditionDependencies()) {&#xA;&#x9;resolved &amp;= dependency.isResolved();&#xA;}&#xA;return resolved;"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionDependencyRelation/void"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//DependencyRelation">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyRelation/resolved"
+          get="boolean resolved = true;&#xA;for(Dependency dependency: getDependencies()) {&#xA;&#x9;resolved &amp;= dependency.isResolved();&#xA;}&#xA;return resolved;"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DependencyRelation/sourceDeltaModule"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DependencyRelation/targetDeltaModule"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DependencyRelation/dependencies"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyRelation/void"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//ApplicationConditionConflictRelation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionConflictRelation/sourceDeltaModules"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionConflictRelation/targetDeltaModule"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionConflictRelation/applicationConditionConflicts"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionConflictRelation/resolved"
+          get="boolean resolved = true;&#xA;for(ApplicationConditionConflict conflict : getApplicationConditionConflicts()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//ConflictRelation">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictRelation/resolved"
+          get="boolean resolved = true;&#xA;for(Conflict conflict : getConflicts()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ConflictRelation/sourceDeltaModule"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ConflictRelation/targetDeltaModule"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ConflictRelation/conflicts"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictRelation/soft"
+          get="boolean soft = true;&#xA;for(Conflict conflict : getConflicts()) {&#xA;&#x9;soft &amp;= conflict.isSoft();&#xA;}&#xA;return soft;"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//DuplicateRelation">
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DuplicateRelation/deltaModules"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//DuplicateRelation/duplicates"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DuplicateRelation/resolved"
+          get="boolean resolved = true;&#xA;for(Duplicate duplicate : getDuplicates()) {&#xA;&#x9;resolved &amp;= duplicate.isResolved();&#xA;}&#xA;return resolved;"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//TransientEffectRelation">
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffectRelation/sourceDeltaModule"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffectRelation/targetDeltaModule"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffectRelation/transientEffects"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//ApplicationConditionDependency">
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionDependency/contributions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionDependency/coDependencies"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//Dependency">
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EAttribute deltamodel.ecore#//Dependency/resolved" get="return getNonResolvableConfig().isEmpty();"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Dependency/sourceDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Dependency/targetDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Dependency/details"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Dependency/transientEffect"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Dependency/nonResolvableConfig"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//ApplicationConditionConflict">
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionConflict/contributions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionConflict/coConflicts"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//Conflict">
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EAttribute deltamodel.ecore#//Conflict/resolved" get="return getNonResolvableConfig().isEmpty();"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//Conflict/soft"
+          get="return getDetails().stream().allMatch(d -> d.isSoft());"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Conflict/sourceDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Conflict/targetDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Conflict/details"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Conflict/duplicate"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Solution Space"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Conflict/nonResolvableConfig"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//Duplicate">
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Duplicate/deltaActions"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Duplicate/details"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Duplicate/conflict"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//Duplicate/resolved"
+          get="boolean resolved = true;&#xA;for(Conflict conflict : getConflict()) {&#xA;&#x9;resolved &amp;= conflict.isResolved();&#xA;}&#xA;return resolved;"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//TransientEffect">
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffect/sourceDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffect/targetDeltaAction"/>
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffect/details"/>
+      <genFeatures property="Readonly" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//TransientEffect/dependency"/>
+    </genClasses>
+    <genClasses ecoreClass="deltamodel.ecore#//Detail">
+      <genFeatures property="None" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference deltamodel.ecore#//Detail/entities"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deltamodel.ecore#//DependencyDetail">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyDetail/kind"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyDetail/dangling"
+          get="return kind == DependencyKind.DANGLING_DEPENDENCY;"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyDetail/condition"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DependencyDetail/transient"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deltamodel.ecore#//ConflictDetail">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictDetail/kind"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictDetail/dangling"
+          get="return kind == ConflictKind.DANGLING_CONFLICT;"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictDetail/soft"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictDetail/condition"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ConflictDetail/duplicate"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deltamodel.ecore#//DuplicateDetail">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//DuplicateDetail/kind"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deltamodel.ecore#//TransientEffectDetail">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//TransientEffectDetail/kind"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deltamodel.ecore#//ApplicationConditionMatch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionMatch/conditionID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionMatch/matchID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionMatch/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deltamodel.ecore#//ApplicationConditionMatch/resolved"
+          get="return getNonResolvableConfig().isEmpty();"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deltamodel.ecore#//ApplicationConditionMatch/nonResolvableConfig"
+          get="EList&lt;Variable> variables = new BasicEList&lt;Variable>();&#xA;switch (this.eClass().getClassifierID()) {&#xA;case DeltaModelPackage.APPLICATION_CONDITION_CONFLICT:&#xA;&#x9;ApplicationConditionConflict applicationConditionConflict = (ApplicationConditionConflict) this;&#xA;&#x9;for (Conflict conflict : applicationConditionConflict.getContributions()) {&#xA;&#x9;&#x9;if (conflict.isResolved()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionConflict.getKind() == ApplicationConditionKind.NAC) {&#xA;&#x9;&#x9;&#x9;&#x9;return new BasicEList&lt;Variable>();&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;for (Variable variable : conflict.getNonResolvableConfig()) {&#xA;&#x9;&#x9;&#x9;&#x9;if (variables.stream().noneMatch(v -> v.getName().equals(variable.getName()))) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;variables.add(FormulaUtil.createVariable(variable.getName()));&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;break;&#xA;case DeltaModelPackage.APPLICATION_CONDITION_DEPENDENCY:&#xA;&#x9;ApplicationConditionDependency applicationConditionDependency = (ApplicationConditionDependency) this;&#xA;&#x9;for (Dependency dependency : applicationConditionDependency.getContributions()) {&#xA;&#x9;&#x9;if (dependency.isResolved()) {&#xA;&#x9;&#x9;&#x9;if (applicationConditionDependency.getKind() == ApplicationConditionKind.NAC) {&#xA;&#x9;&#x9;&#x9;&#x9;return new BasicEList&lt;Variable>();&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;for (Variable variable : dependency.getNonResolvableConfig()) {&#xA;&#x9;&#x9;&#x9;&#x9;if (variables.stream().noneMatch(v -> v.getName().equals(variable.getName()))) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;variables.add(FormulaUtil.createVariable(variable.getName()));&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;break;&#xA;default:&#xA;&#x9;break;&#xA;}&#xA;&#xA;return variables;"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ (c), Christopher Pietsch, Software Engineering Group, University of Siegen 2017 all rights reserved
+-->
+
+<plugin>
+   <extension-point id="domain_problem_space_adapter" name="Domain Problem Space Adapter" schema="schema/domain_problem_space_adapter.exsd"/>
+   <extension-point id="signature_matcher" name="Signature Matcher" schema="schema/signature_matcher.exsd"/>
+   <extension-point id="importer_filter" name="Importer Filter" schema="schema/importer_filter.exsd"/>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated deltamodel -->
+      <package
+            uri="http://www.sidiff.org/deltamodeling/deltamodel/1.0"
+            class="org.sidiff.deltamodeling.deltamodel.DeltaModelPackage"
+            genModel="model/deltamodel.genmodel"/>
+   </extension>
+   <extension
+         point="org.sidiff.deltamodeling.deltamodel.domain_problem_space_adapter">
+      <domain_problem_space_adapter
+            class="org.sidiff.deltamodeling.deltamodel.adapter.impl.DefaultDomainProblemSpaceAdapter">
+      </domain_problem_space_adapter>
+   </extension>
+   <extension
+         point="org.sidiff.deltamodeling.deltamodel.signature_matcher">
+      <signature_matcher
+            class="org.sidiff.deltamodeling.deltamodel.superimposition.signature.impl.DefaultSignatureMatcher">
+      </signature_matcher>
+      <signature_matcher
+            class="org.sidiff.deltamodeling.deltamodel.superimposition.signature.impl.XmiIDSignatureMatcher">
+      </signature_matcher>
+   </extension>
+
+</plugin>
